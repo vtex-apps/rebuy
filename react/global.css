@@ -1,0 +1,17 @@
+/* Container box */
+.vtex-rebuy__box > div {
+  padding: 1rem;
+}
+
+/* Product Price */
+.vtex-rebuy .vtex-price-selling__label {
+  display: none;
+}
+.vtex-rebuy .vtex-price-selling {
+  color: #000;
+}
+
+/* Totalizer */
+.vtex-rebuy__total .vtex-price-selling {
+    font-size: 1.25rem;
+}

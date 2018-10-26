@@ -1,0 +1,12 @@
+{
+  "pages": {
+    "rebuy": {
+      "path": "/_v/rebuy"
+    }
+  },
+  "extensions": {
+    "rebuy": {
+      "component": "index"
+    }
+  }
+}

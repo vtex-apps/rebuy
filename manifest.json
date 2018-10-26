@@ -1,0 +1,35 @@
+{
+  "name": "rebuy",
+  "vendor": "vtex",
+  "version": "0.1.0",
+  "title": "Rebuy",
+  "description": "VTEX Rebuy app",
+  "mustUpdateAt": "2019-10-26",
+  "categories": [],
+  "registries": [
+    "smartcheckout"
+  ],
+  "settingsSchema": {
+    "title": "vtex.rebuy.settings",
+    "type": "object",
+    "required": [
+      "schemaName"
+    ],
+    "properties": {
+      "schemaName": {
+        "type": "string",
+        "title": "vtex.rebuy.settings.schema-name",
+        "default": "lastOrders"
+      }
+    }
+  },
+  "dependencies": {
+    "vtex.styleguide": "7.x",
+    "vtex.store": "1.x",
+    "vtex.store-components": "2.x"
+  },
+  "builders": {
+    "pages": "0.x",
+    "react": "2.x"
+  }
+}
