@@ -15,7 +15,6 @@ import './global.css'
 class RebuyContainer extends Component {
   static propTypes = { orderFormContext: contextPropTypes }
   static contextTypes = { getSettings: func }
-  baseURL = '/api/dataentities/orders/search'
 
   get settings() {
     const { schemaName = 'lastOrders', ...settings } = this.context.getSettings(
@@ -23,6 +22,9 @@ class RebuyContainer extends Component {
     )
     return { schemaName, ...settings }
   }
+
+  getOrdersURL = ({ schemaName, email }) =>
+    `/api/dataentities/orders/search?_schema=${schemaName}&_where=clientProvileData.email=${email}&_sort=createdIn DESC`
 
   render() {
     const { schemaName } = this.settings
@@ -33,14 +35,9 @@ class RebuyContainer extends Component {
     const email = path(['clientProfileData', 'email'], orderForm)
     if (!email) return null
 
-    return (
-      <Rebuy
-        url={`${
-          this.baseURL
-        }?_schema=${schemaName}&_where=clientProfileData.email=${email}&_sort=createdIn DESC`}
-        {...this.props}
-      />
-    )
+    const ordersURL = this.getOrdersURL({ schemaName, email })
+
+    return <Rebuy url={ordersURL} {...this.props} />
   }
 }
 
