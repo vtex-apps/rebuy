@@ -7,4 +7,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Basic listing of last order with add to cart functionality
+- MVP of `vtex.rebuy` app with basic listing of last order items with add to cart functionality
