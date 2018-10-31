@@ -53,7 +53,7 @@ class Rebuy extends Component {
 
     return (
       <section className="vtex-rebuy vtex-page-padding">
-        <Header onClickBuy={this.handleClickBuy} buyLoading={isAddingToCart} />
+        <Header onClickBuy={this.handleClickBuy} loading={isAddingToCart} />
         <div className="vtex-rebuy__box">
           <Box>
             <OrderItems items={prop('items', lastOrder)} />
