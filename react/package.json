@@ -11,8 +11,7 @@
   ],
   "settingsSchema": {},
   "dependencies": {
-    "ramda": "^0.25.0",
-    "recompose": "^0.30.0"
+    "ramda": "^0.25.0"
   },
   "builders": {
     "pages": "0.x",

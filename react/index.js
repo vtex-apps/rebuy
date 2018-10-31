@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
-import { func, string } from 'prop-types'
-import { head, prop } from 'ramda'
-import { Box, Spinner } from 'vtex.styleguide'
+import { func } from 'prop-types'
+import { path } from 'ramda'
+import { Spinner } from 'vtex.styleguide'
 import { orderFormConsumer, contextPropTypes } from 'vtex.store/OrderFormContext'
 
 import pkg from './package.json'
-import WithFetch from './WithFetch'
-import { Header, OrderItems, OrderTotal } from './components'
+import Rebuy from './components/Rebuy'
 
 import './global.css'
 
-class Rebuy extends Component {
+/**
+ * TODO: Show listing of attachments for each SKU when orderForm enables that
+ */
+class RebuyContainer extends Component {
   static propTypes = { orderFormContext: contextPropTypes }
   static contextTypes = { getSettings: func }
   baseURL = '/api/dataentities/orders/search'
-
-  handleClickBuy = () => {}
 
   get settings() {
     const { schemaName = 'lastOrders', ...settings } = this.context.getSettings(
@@ -30,29 +30,18 @@ class Rebuy extends Component {
 
     if (loading) return <Spinner />
 
+    const email = path(['clientProfileData', 'email'], orderForm)
+    if (!email) return null
+
     return (
-      <WithFetch url={`${this.baseURL}?_schema=${schemaName}&_sort=createdIn DESC`}>
-        {({ data = [], loading }) => {
-          if (loading) return <Spinner />
-
-          const lastOrder = head(data)
-          if (!lastOrder) return null
-
-          return (
-            <section className="vtex-rebuy vtex-page-padding">
-              <Header onClickBuy={this.handleClickBuy} />
-              <div className="vtex-rebuy__box">
-                <Box>
-                  <OrderItems items={prop('items', lastOrder)} />
-                  <OrderTotal value={prop('value', lastOrder)} />
-                </Box>
-              </div>
-            </section>
-          )
-        }}
-      </WithFetch>
+      <Rebuy
+        url={`${
+          this.baseURL
+        }?_schema=${schemaName}&_where=clientProfileData.email=${email}&_sort=createdIn DESC`}
+        {...this.props}
+      />
     )
   }
 }
 
-export default orderFormConsumer(Rebuy)
+export default orderFormConsumer(RebuyContainer)
