@@ -1,7 +1,7 @@
 {
   "name": "rebuy",
   "vendor": "vtex",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "title": "Rebuy",
   "description": "VTEX Rebuy app",
   "mustUpdateAt": "2019-10-26",
@@ -9,6 +9,9 @@
   "registries": [
     "smartcheckout"
   ],
+  "scripts": {
+    "postreleasy": "vtex publish --verbose"
+  },
   "settingsSchema": {
     "title": "vtex.rebuy.settings",
     "type": "object",
