@@ -5,20 +5,7 @@
   "title": "Rebuy",
   "description": "VTEX Rebuy app",
   "mustUpdateAt": "2019-10-26",
-  "categories": [],
-  "registries": [
-    "smartcheckout"
-  ],
-  "settingsSchema": {},
   "dependencies": {
     "ramda": "^0.25.0"
-  },
-  "builders": {
-    "pages": "0.x",
-    "react": "2.x"
-  },
-  "vtexVersion": "0.1.0",
-  "vtexDependencies": {
-    "vtex.styleguide": "7.x"
   }
 }
