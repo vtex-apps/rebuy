@@ -7,8 +7,6 @@ This app shows the last order for the identified user, with a button to buy the 
 
 For this to work, you need to create the `lastOrders` schema on the `orders` dataentity. [Docs](http://help.vtex.com/en/tutorial/master-data-v2)
 
-If you have a schema with a different name, change the configuration for Rebuy in `https://{{account}}.myvtex.com/admin/apps`.
-
 ```json
 {
   "properties": {

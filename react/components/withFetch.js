@@ -8,12 +8,15 @@ const withFetch = WrappedComponent =>
       url: string.isRequired,
       children: func.isRequired,
     }
-    state = { loading: true, data: null }
+    state = { loading: true, data: null, error: null }
 
     async componentDidMount() {
       const { url } = this.props
-      const response = await fetch(url).then(response => response.json())
-      this.setState({ data: response, loading: false })
+      const response = await fetch(url)
+      if (!response.ok) {
+        return this.setState({ data: [], error: response.status, loading: false})
+      }
+      this.setState({ data: await response.json(), error: null, loading: false })
     }
 
     render() {
