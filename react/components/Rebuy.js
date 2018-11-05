@@ -42,14 +42,25 @@ class Rebuy extends Component {
 
   render() {
     const {
-      fetchContext: { loading, data },
+      fetchContext: { data, error, loading },
     } = this.props
     const { isAddingToCart } = this.state
 
-    if (loading) return <Spinner />
+    if (loading) {
+      return <Spinner />
+    }
+    
+    if (error >= 400) {
+      console.warn(
+        'The "lastOrders" schema seems to be missing. Create it according to the instruction on README.'
+      )
+      return null
+    }
 
     const lastOrder = head(data)
-    if (!lastOrder) return null
+    if (!lastOrder) {
+      return null
+    }
 
     return (
       <section className="vtex-rebuy vtex-page-padding">

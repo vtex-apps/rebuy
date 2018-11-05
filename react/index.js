@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { func } from 'prop-types'
 import { path } from 'ramda'
 import { Spinner } from 'vtex.styleguide'
 import { orderFormConsumer, contextPropTypes } from 'vtex.store/OrderFormContext'
 
-import pkg from './package.json'
 import Rebuy from './components/Rebuy'
 
 import './global.css'
@@ -14,20 +12,12 @@ import './global.css'
  */
 class RebuyContainer extends Component {
   static propTypes = { orderFormContext: contextPropTypes }
-  static contextTypes = { getSettings: func }
-
-  get settings() {
-    const { schemaName = 'lastOrders', ...settings } = this.context.getSettings(
-      `${pkg.vendor}.${pkg.name}`
-    )
-    return { schemaName, ...settings }
-  }
+  schemaName = 'lastOrders'
 
   getOrdersURL = ({ schemaName, email }) =>
-    `/api/dataentities/orders/search?_schema=${schemaName}&_where=clientProvileData.email=${email}&_sort=createdIn DESC`
+    `/api/dataentities/orders/search?_schema=${schemaName}&_where=clientProfileData.email=${email}&_sort=createdIn DESC`
 
   render() {
-    const { schemaName } = this.settings
     const { loading, orderForm } = this.props.orderFormContext
 
     if (loading) return <Spinner />
@@ -35,7 +25,7 @@ class RebuyContainer extends Component {
     const email = path(['clientProfileData', 'email'], orderForm)
     if (!email) return null
 
-    const ordersURL = this.getOrdersURL({ schemaName, email })
+    const ordersURL = this.getOrdersURL({ schemaName: this.schemaName, email })
 
     return <Rebuy url={ordersURL} {...this.props} />
   }
