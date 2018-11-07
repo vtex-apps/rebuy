@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.1.2] - 2018-11-07
+### Added
+- Add Link to the products from last order. 
+
 ## [0.1.1] - 2018-11-05
 ### Added
 - Error checking and warning when schema is not working
