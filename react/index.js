@@ -20,7 +20,7 @@ class RebuyContainer extends Component {
   render() {
     const { loading, orderForm } = this.props.orderFormContext
 
-    if (loading) return <Spinner />
+    if (loading) return null
 
     const email = path(['clientProfileData', 'email'], orderForm)
     if (!email) return null
