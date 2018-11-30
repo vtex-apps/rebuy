@@ -20,14 +20,11 @@ class RebuyContainer extends Component {
   render() {
     const { loading, orderForm } = this.props.orderFormContext
 
-    if (loading) return null
+    const email = !loading && path(['clientProfileData', 'email'], orderForm)
 
-    const email = path(['clientProfileData', 'email'], orderForm)
-    if (!email) return null
+    const ordersURL = email && this.getOrdersURL({ schemaName: this.schemaName, email })
 
-    const ordersURL = this.getOrdersURL({ schemaName: this.schemaName, email })
-
-    return <Rebuy url={ordersURL} {...this.props} />
+    return <Rebuy url={ordersURL || undefined} {...this.props} />
   }
 }
 
