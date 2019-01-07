@@ -9,6 +9,10 @@
   "registries": [
     "smartcheckout"
   ],
+  "builders": {
+    "store": "0.x",
+    "react": "2.x"
+  },
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
@@ -30,9 +34,5 @@
     "vtex.styleguide": "7.x",
     "vtex.store": "1.x",
     "vtex.store-components": "2.x"
-  },
-  "builders": {
-    "pages": "0.x",
-    "react": "2.x"
   }
 }
