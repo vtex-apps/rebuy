@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { array, bool, shape } from 'prop-types'
 import { head, map, path, pick, prop } from 'ramda'
 import { Box } from 'vtex.styleguide'
-import { contextPropTypes } from 'vtex.store/OrderFormContext'
+import { contextPropTypes } from 'vtex.store-resources/OrderFormContext'
 import { ExtensionPoint } from 'render'
 
 import Header from './Header'
@@ -93,7 +93,7 @@ class Rebuy extends Component {
     if (loading) {
       return null
     }
-    
+
     if (error >= 400) {
       console.warn(
         'The "lastOrders" schema seems to be missing. Create it according to the instruction on README.'

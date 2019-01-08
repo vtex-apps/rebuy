@@ -1,5 +1,11 @@
 {
   "rebuy": {
+    "required": [
+      "greeting"
+    ],
     "component": "index"
+  },
+  "greeting": {
+    "component": "vtex.store-components/Greeting"
   }
 }

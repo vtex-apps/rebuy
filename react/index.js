@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { path } from 'ramda'
 import { Spinner } from 'vtex.styleguide'
-import { orderFormConsumer, contextPropTypes } from 'vtex.store/OrderFormContext'
+import { orderFormConsumer, contextPropTypes } from 'vtex.store-resources/OrderFormContext'
 
 import Rebuy from './components/Rebuy'
 
