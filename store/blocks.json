@@ -1,5 +1,11 @@
 {
   "rebuy": {
+    "blocks": [
+      "greeting"
+    ],
+    "inheritComponent": true
+  },
+  "greeting": {
     "blocks": [],
     "inheritComponent": true
   }
