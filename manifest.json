@@ -33,6 +33,6 @@
   "dependencies": {
     "vtex.styleguide": "7.x",
     "vtex.store-resources": "0.x",
-    "vtex.store-components": "3.x"
+    "vtex.store-components": "3.3.2-beta"
   }
 }
