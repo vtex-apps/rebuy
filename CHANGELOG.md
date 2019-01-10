@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [0.2.0] - 2018-11-30
-
+## [1.0.0] - 2019-01-10
 ### Changed
+- Add support to store builder.
 
+## [0.2.0] - 2018-11-30
+### Changed
 - Removes spinner and adds transition when customer data is loaded
 
 ## [0.1.2] - 2018-11-07

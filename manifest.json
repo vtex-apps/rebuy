@@ -1,7 +1,7 @@
 {
   "name": "rebuy",
   "vendor": "vtex",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "title": "Rebuy",
   "description": "VTEX Rebuy app",
   "mustUpdateAt": "2019-10-26",
@@ -9,6 +9,10 @@
   "registries": [
     "smartcheckout"
   ],
+  "builders": {
+    "store": "0.x",
+    "react": "2.x"
+  },
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
@@ -28,11 +32,7 @@
   },
   "dependencies": {
     "vtex.styleguide": "7.x",
-    "vtex.store": "1.x",
-    "vtex.store-components": "2.x"
-  },
-  "builders": {
-    "pages": "0.x",
-    "react": "2.x"
+    "vtex.store-resources": "0.x",
+    "vtex.store-components": "3.x"
   }
 }
