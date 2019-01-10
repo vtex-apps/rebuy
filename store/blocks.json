@@ -6,7 +6,6 @@
     "inheritComponent": true
   },
   "greeting": {
-    "blocks": [],
     "inheritComponent": true
   }
 }
