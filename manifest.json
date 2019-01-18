@@ -11,7 +11,7 @@
   ],
   "builders": {
     "store": "0.x",
-    "react": "2.x"
+    "react": "3.x"
   },
   "scripts": {
     "postreleasy": "vtex publish --verbose"
@@ -31,7 +31,7 @@
     }
   },
   "dependencies": {
-    "vtex.styleguide": "7.x",
+    "vtex.styleguide": "9.x",
     "vtex.store-resources": "0.x",
     "vtex.store-components": "3.x"
   }
