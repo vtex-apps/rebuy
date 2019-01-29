@@ -1,7 +1,7 @@
 import React from 'react'
 import { arrayOf, number, shape, string } from 'prop-types'
 import { prop, path } from 'ramda'
-import { Link } from 'render'
+import { Link } from 'vtex.render-runtime'
 import ProductPrice from 'vtex.store-components/ProductPrice'
 
 const OrderItems = ({ items = [] }) => (

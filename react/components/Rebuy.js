@@ -3,7 +3,7 @@ import { array, bool, shape } from 'prop-types'
 import { head, map, path, pick, prop } from 'ramda'
 import { Box } from 'vtex.styleguide'
 import { contextPropTypes } from 'vtex.store-resources/OrderFormContext'
-import { ExtensionPoint } from 'render'
+import { ExtensionPoint } from 'vtex.render-runtime'
 
 import Header from './Header'
 import OrderItems from './OrderItems'
