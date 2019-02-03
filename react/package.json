@@ -6,6 +6,7 @@
   "description": "VTEX Rebuy app",
   "mustUpdateAt": "2019-10-26",
   "dependencies": {
-    "ramda": "^0.25.0"
+    "ramda": "^0.25.0",
+    "react-device-detect": "^1.6.2"
   }
 }
