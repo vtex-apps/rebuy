@@ -33,8 +33,8 @@
   },
   "dependencies": {
     "vtex.styleguide": "9.x",
-    "vtex.store-resources": "0.x",
+    "vtex.store-resources": "0.3.2-beta",
     "vtex.store-components": "3.x",
-    "vtex.store-graphql": "2.x"
+    "vtex.store-graphql": "2.46.2-beta.0"
   }
 }
