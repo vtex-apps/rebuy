@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { isMobileOnly } from 'react-device-detect'
-import { prop } from 'ramda'
-import Button from 'vtex.styleguide/Button'
+import { prop, find, propEq } from 'ramda'
 import { ExtensionPoint } from 'vtex.render-runtime'
+import { FormattedMessage } from 'react-intl'
+import BuyButton from 'vtex.store-components/BuyButton'
 
 import OrderItems from './OrderItems'
 import OrderTotal from './OrderTotal'
@@ -13,22 +14,27 @@ const Wrapper = ({children}) => (
   </div>
 )
 
-const LastOrderLabel = () => <div className="t-body c-on-base ml4-ns">Here is your last order</div>
+const LastOrderLabel = () => (
+  <div className="t-body c-on-base ml4-ns">
+    <FormattedMessage id="rebuy.last-order" />
+  </div>
+) 
   
-const AddButton = ({onClick, isLoading}) => (
+const AddButton = ({ products }) => (
   <div className="pt5 pt7-ns mh5">
-    <Button type="submit" onClick={onClick} isLoading={isLoading} block>
-      <div className="flex w-100 justify-center items-center ttu">
-        <div className="t-body">Add to cart</div>
+    <BuyButton skuItems={products} large >
+      <div className="flex w-100 justify-center items-center ttu t-body">
+        <FormattedMessage id="rebuy.add-to-cart" />
       </div>
-    </Button>
+    </BuyButton>
   </div>
 )
 
-class Content extends Component {
+const findItemTotal = (lastOrder) => prop('value' ,find(propEq('id', 'Items'))(prop('totals', lastOrder)))
 
+class Content extends Component {
   renderMobile = () => {
-    const { lastOrder } = this.props
+    const { lastOrder, products } = this.props
 
     return (
       <Fragment>
@@ -37,16 +43,16 @@ class Content extends Component {
           <div className="w-100 pa4 flex flex-column">
             <LastOrderLabel />
             <OrderItems items={prop('items', lastOrder)} />
-            <OrderTotal value={prop('value', lastOrder)} />
+            <OrderTotal value={findItemTotal(lastOrder)} />
           </div>
         </Wrapper>
-        <AddButton onClick={() => {}} isLoading={false} />
+        <AddButton products={products} />
       </Fragment> 
     )
   }
 
   render() {
-    const { lastOrder } = this.props
+    const { lastOrder, products } = this.props
 
     if (isMobileOnly) { return this.renderMobile() }
 
@@ -56,12 +62,12 @@ class Content extends Component {
           <div className="w-third">
             <ExtensionPoint id="greeting" />
             <LastOrderLabel />
-            <AddButton onClick={() => {}} isLoading={false} />
+            <AddButton products={products} />
           </div>
           <div className="mh6 ba b--muted-4" style={{ width: '1px' }} />
           <div className="w-two-thirds flex flex-column justify-between">
             <OrderItems items={prop('items', lastOrder)} />
-            <OrderTotal value={prop('value', lastOrder)} />
+            <OrderTotal value={findItemTotal(lastOrder)} />
           </div>
         </div>
       </Wrapper>

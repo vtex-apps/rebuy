@@ -1,27 +1,25 @@
 import React, { Component } from 'react'
-import { array, bool, shape } from 'prop-types'
-import { all, isNil, compose, head, map, path, pick, prop, props, propOr, values } from 'ramda'
-import { Box } from 'vtex.styleguide'
+import { compose, map, path, pick, prop, propOr, values } from 'ramda'
 import { contextPropTypes } from 'vtex.store-resources/OrderFormContext'
-import { ExtensionPoint } from 'vtex.render-runtime'
-import Button from 'vtex.styleguide/Button'
+import { graphql } from 'react-apollo'
 
-import Header from './Header'
-import OrderItems from './OrderItems'
+import lastUserOrder from '../queries/lastUserOrder.gql'
+
 import Content from './Content'
-import OrderTotal from './OrderTotal'
-import withFetch from './withFetch'
+import { separateParentChildren } from '../utils/attachments'
 
-import mock from './mock.json'
+const parseOrderItemToButton = ({ id, sellingPrice, additionalInfo={}, ...rest }) =>
+  ({ ...rest, skuId: id, price: sellingPrice / 100, brand: additionalInfo.brandName })
 
-const isParentItem = item => all(isNil, props(['parentItemIndex', 'parentAssemblyBinding'], item))
 const buildItemsWithOptions = (lastItems) => {
-  const [parentItems, assemblyOptions] = partition(isParentItem, lastItems)
+  const [parentItems, assemblyOptions] = separateParentChildren(lastItems)
 
-  const parentMap = parentItems.reduce((prev, curr) => ({ ...prev, [curr.id]: curr }), {})
-  const a = fromPairs(map(pair(prop('id'), identity), parentItems))
-  const pickProps = pick(['id', 'quantity', 'seller', 'options'])
+  const parentMap = parentItems.reduce((prev, curr) => 
+    ({ ...prev, [curr.id]: parseOrderItemToButton(curr) }), {})
+
+  const pickProps = pick(['skuId', 'quantity', 'seller', 'options', 'price', 'name', 'brand'])
   const mapAndPick = compose(map(pickProps), values)
+  
   return mapAndPick(
     assemblyOptions.reduce((prev, currOption) => {
       const { parentItemIndex, parentAssemblyBinding } = currOption
@@ -49,35 +47,9 @@ class Rebuy extends Component {
 
   static propTypes = {
     orderFormContext: contextPropTypes,
-    fetchContext: shape({
-      loading: bool,
-      data: array,
-    }),
   }
   state = {
-    isAddingToCart: false,
     isVisible: false,
-  }
-
-  handleClickBuy = () => {
-    const { orderFormContext, fetchContext } = this.props
-
-    const lastOrder = head(prop('data', fetchContext))
-
-    const minicartButton = document.querySelector('.vtex-minicart .vtex-button')
-
-    this.setState({ isAddingToCart: true })
-    orderFormContext
-      .addItem({
-        variables: {
-          orderFormId: path(['orderForm', 'orderFormId'], orderFormContext),
-          items: buildItemsWithOptions(prop('items', lastOrder))
-        },
-      })
-      .then(() => {
-        this.setState({ isAddingToCart: false })
-        orderFormContext.refetch().then(() => minicartButton.click())
-      })
   }
 
   triggerOpenTransition = () => {
@@ -115,26 +87,9 @@ class Rebuy extends Component {
   }
 
   render() {
-    const {
-      fetchContext: { data, error, loading },
-    } = this.props
-    const { isAddingToCart, isVisible } = this.state
+    const { isVisible } = this.state
 
-    // console.log('teste rebuy: ', JSON.stringify(data))
-
-    // if (loading) {
-    //   return null
-    // }
-
-    // if (error >= 400) {
-    //   console.warn(
-    //     'The "lastOrders" schema seems to be missing. Create it according to the instruction on README.'
-    //   )
-    //   return null
-    // }
-
-    // const lastOrder = head(data)
-    const lastOrder = head(mock)
+    const lastOrder = path(['lastUserOrder', 'lastUserOrder'], this.props)
 
     if (!lastOrder) {
       return null
@@ -144,61 +99,12 @@ class Rebuy extends Component {
       this.triggerOpenTransition()
     }
 
-    return <Content lastOrder={lastOrder} />
-
     return (
-      <section className="vtex-rebuy vtex-page-padding overflow-hidden h0" ref={this.container}>
-        <ExtensionPoint id="greeting" />
-        <div className="mv4 mh4 bg-base border-box br1 bw1 ba b--light-gray">
-          <div className="w-100 pa4 flex flex-column">
-            <div className="t-body c-on-base">Here is your last order</div>
-            <OrderItems items={prop('items', lastOrder)} />
-            <OrderTotal value={prop('value', lastOrder)} />
-          </div>
-        </div>
-        <div className="pt5 mh5">
-          <Button type="submit" onClick={() => {}} isLoading={false} block>
-            <div className="flex w-100 justify-center items-center">
-              <div>Add to cart</div>
-            </div>
-          </Button>
-        </div>
-      </section>
-    )
-
-    return (
-      <section className="vtex-rebuy vtex-page-padding overflow-hidden h0" ref={this.container}>
-        <div className="mv4 mh6 bg-base border-box br1 bw1 ba b--light-gray">
-          <div className="w-100 pv6 ph4 flex">
-            <div className="w-third">
-              <ExtensionPoint id="greeting" />
-              <div className="t-body ml4">Here is your last order</div>
-              <div className="pt7">
-                <Button type="submit" onClick={() => {}} isLoading={false} block>
-                  <div className="flex w-100 justify-center items-center">
-                    <div>Add to cart</div>
-                  </div>
-                </Button>
-              </div>
-            </div>
-            <div className="mh6 ba b--muted-4" style={{ width: '1px' }}/>
-            <div className="w-two-thirds">
-              <OrderItems items={prop('items', lastOrder)} />
-              <OrderTotal value={prop('value', lastOrder)} />
-            </div>
-          </div>
-        </div>
-        {/* <ExtensionPoint id="greeting" /> */}
-        {/* <Header onClickBuy={this.handleClickBuy} loading={isAddingToCart} /> */}
-        {/* <div className="vtex-rebuy__box">
-          <Box>
-            <OrderItems items={prop('items', lastOrder)} />
-            <OrderTotal value={prop('value', lastOrder)} />
-          </Box>
-        </div> */}
-      </section>
+      <Content 
+        lastOrder={lastOrder} 
+        products={buildItemsWithOptions(prop('items', lastOrder))} />
     )
   }
 }
 
-export default withFetch(Rebuy)
+export default graphql(lastUserOrder, { name: 'lastUserOrder', options: {ssr: false}})(Rebuy)

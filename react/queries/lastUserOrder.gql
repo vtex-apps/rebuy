@@ -1,0 +1,27 @@
+query lastUserOrder {
+  lastUserOrder {
+    orderId
+    value
+    items {
+      uniqueId
+      id
+      name
+      sellingPrice
+      imageUrl
+      detailUrl
+      quantity
+      parentItemIndex
+      parentAssemblyBinding
+      seller
+      additionalInfo {
+        brandName
+      }
+    }
+    totals {
+      id
+      name
+      value
+    }
+    
+  }
+}
