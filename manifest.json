@@ -1,7 +1,7 @@
 {
   "name": "rebuy",
   "vendor": "vtex",
-  "version": "1.1.1",
+  "version": "1.1.2-beta",
   "title": "Rebuy",
   "description": "VTEX Rebuy app",
   "mustUpdateAt": "2019-10-26",
