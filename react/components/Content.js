@@ -8,6 +8,7 @@ import BuyButton from 'vtex.store-components/BuyButton'
 
 import OrderItems from './OrderItems'
 import OrderTotal from './OrderTotal'
+import { userLastOrderType } from './propTypes'
 
 const Wrapper = ({children}) => (
   <div className="mv4 mh4 mh6-ns bg-base border-box br1 bw1 ba b--light-gray">

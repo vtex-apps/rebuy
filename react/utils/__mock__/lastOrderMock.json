@@ -1,6 +1,6 @@
 {  
   "orderId":"111aaa",
-  "value":17.5,
+  "value":1750,
   "items":[  
      {  
         "uniqueId":"0",
@@ -82,12 +82,12 @@
      {  
         "id":"Items",
         "name":"Items",
-        "value":16
+        "value":1600
      },
      {  
         "id":"Shipping",
         "name":"Shipping",
-        "value":1.5
+        "value":150
      }
   ]
 }
