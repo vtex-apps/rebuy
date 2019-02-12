@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { compose, map, path, pick, prop, propOr, values } from 'ramda'
+import { path, prop } from 'ramda'
 import { contextPropTypes } from 'vtex.store-resources/OrderFormContext'
 import { graphql } from 'react-apollo'
 
@@ -8,38 +8,8 @@ import userLastOrder from '../queries/userLastOrder.gql'
 
 import Content from './Content'
 import { userLastOrderType } from './propTypes'
-import { separateParentChildren } from '../utils/attachments'
+import { buildItemsWithOptions } from '../utils/attachments'
 
-const parseOrderItemToButton = ({ id, sellingPrice, additionalInfo={}, ...rest }) =>
-  ({ ...rest, skuId: id, price: sellingPrice / 100, brand: additionalInfo.brandName })
-
-const buildItemsWithOptions = (lastItems) => {
-  const [parentItems, assemblyOptions] = separateParentChildren(lastItems)
-
-  const parentMap = parentItems.reduce((prev, curr) => 
-    ({ ...prev, [curr.id]: parseOrderItemToButton(curr) }), {})
-
-  const pickProps = pick(['skuId', 'quantity', 'seller', 'options', 'price', 'name', 'brand'])
-  const mapAndPick = compose(map(pickProps), values)
-  
-  return mapAndPick(
-    assemblyOptions.reduce((prev, currOption) => {
-      const { parentItemIndex, parentAssemblyBinding } = currOption
-      const parentId = lastItems[parentItemIndex].id
-      const parentObj = prev[parentId]
-      const option = {
-        assemblyId: parentAssemblyBinding,
-        ...pick(['id', 'quantity', 'seller'], currOption),
-      }
-      const options = [...propOr([], 'options', parentObj), option]
-      parentObj.options = options
-      return {
-        ...prev,
-        [parentId]: parentObj,
-      }
-    }, parentMap)
-  )
-}
 class Rebuy extends Component {
   constructor(props) {
     super(props)

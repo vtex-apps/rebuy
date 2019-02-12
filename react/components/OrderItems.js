@@ -1,26 +1,16 @@
 import React from 'react'
 import { arrayOf, number, shape, string } from 'prop-types'
-import { prop, path, filter, propEq } from 'ramda'
+import { prop, path } from 'ramda'
 import { Link } from 'vtex.render-runtime'
 import ProductPrice from 'vtex.store-components/ProductPrice'
 
-import { separateParentChildren } from '../utils/attachments'
-
-const isSonOfIndex = (index) => propEq('parentItemIndex', index)
-
-const sumTotalPricePerUnit = (assemblyOptions, parentIndex, parentQuantity, parentPrice) => {
-  const children = filter(isSonOfIndex(parentIndex), assemblyOptions)
-  return children.reduce(
-    (total, item) => total + item.sellingPrice * item.quantity / parentQuantity,
-    parentPrice
-    )
-}
+import { isParentItem, separateParentChildren, sumTotalPricePerUnit } from '../utils/attachments'
 
 const OrderItems = ({ items = [] }) => {
-  const [parentItems, assemblyOptions] = separateParentChildren(items)
+  const [_, assemblyOptions] = separateParentChildren(items)
   return (
     <ul className="vtex-rebuy__items list ma0 pa0">
-      {parentItems.map((item, index) => (
+      {items.map((item, index) => isParentItem(item) ? (
         <li
           key={prop('uniqueId', item)}
           className="vtex-rebuy__item flex justify-between pt3 bb b--muted-4"
@@ -46,7 +36,7 @@ const OrderItems = ({ items = [] }) => {
               <span className="vtex-rebuy__item-price ">
                 <ProductPrice
                   sellingPriceClass="c-on-base t-body t-heading-5-ns b-s"
-                  sellingPrice={sumTotalPricePerUnit(assemblyOptions, index, item.quantity, item.sellingPrice) / 100}
+                  sellingPrice={sumTotalPricePerUnit(assemblyOptions, index, item) / 100}
                   showListPrice={false}
                   showLabels={false}
                 />
@@ -54,7 +44,7 @@ const OrderItems = ({ items = [] }) => {
             </div>
           </div>
         </li>
-      ))}
+      ) : null)}
     </ul>
   )
 }
