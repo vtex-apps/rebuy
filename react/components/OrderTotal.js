@@ -3,12 +3,14 @@ import { number } from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import ProductPrice from 'vtex.store-components/ProductPrice'
 
+import rebuy from '../rebuy.css'
+
 const OrderTotal = ({ value = 0 }) => (
-  <div className="vtex-rebuy__total flex justify-end items-end mt6-s">
-    <span className="vtex-rebuy__total-title t-heading-5 c-on-base">
+  <div className={`${rebuy.totalContainer} flex justify-end items-end mt6-s`}>
+    <span className={`${rebuy.totalTitle} t-heading-5 c-on-base`}>
       <FormattedMessage id="rebuy.total" />
     </span>
-    <span className="vtex-rebuy__total-price ml4">
+    <span className={`${rebuy.totalPrice} ml4`}>
       <ProductPrice sellingPriceClass="c-on-base t-heading-5" sellingPrice={value / 100} showListPrice={false} showLabels={false} />
     </span>
   </div>

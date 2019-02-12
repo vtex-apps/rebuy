@@ -11,7 +11,7 @@ import OrderTotal from './OrderTotal'
 import { userLastOrderType } from './propTypes'
 
 const Wrapper = ({children}) => (
-  <div className="mv4 mh4 mh6-ns bg-base border-box br1 bw1 ba b--light-gray">
+  <div className="mv4 mh4 mh6-ns bg-base border-box br1 bw1 ba b--muted-4">
     {children}
   </div>
 )
@@ -32,7 +32,7 @@ const AddButton = ({ products }) => (
   </div>
 )
 
-const findItemTotal = (lastOrder) => prop('value' ,find(propEq('id', 'Items'))(prop('totals', lastOrder)))
+const findItemTotal = (lastOrder) => prop('value', find(propEq('id', 'Items'), lastOrder.totals))
 
 class Content extends Component {
   static propTypes = {
@@ -63,7 +63,7 @@ class Content extends Component {
         <Wrapper>
           <div className="w-100 pa4 flex flex-column">
             <LastOrderLabel />
-            <OrderItems items={prop('items', lastOrder)} />
+            <OrderItems items={lastOrder.items} />
             <OrderTotal value={findItemTotal(lastOrder)} />
           </div>
         </Wrapper>
@@ -87,7 +87,7 @@ class Content extends Component {
           </div>
           <div className="mh6 ba b--muted-4" style={{ width: '1px' }} />
           <div className="w-two-thirds flex flex-column justify-between">
-            <OrderItems items={prop('items', lastOrder)} />
+            <OrderItems items={lastOrder.items} />
             <OrderTotal value={findItemTotal(lastOrder)} />
           </div>
         </div>

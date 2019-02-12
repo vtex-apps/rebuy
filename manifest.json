@@ -17,23 +17,8 @@
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
-  "settingsSchema": {
-    "title": "vtex.rebuy.settings",
-    "type": "object",
-    "required": [
-      "schemaName"
-    ],
-    "properties": {
-      "schemaName": {
-        "type": "string",
-        "title": "vtex.rebuy.settings.schema-name",
-        "default": "lastOrders"
-      }
-    }
-  },
   "dependencies": {
     "vtex.styleguide": "9.x",
-    "vtex.store-resources": "0.x",
     "vtex.store-components": "3.x",
     "vtex.store-graphql": "2.x"
   }

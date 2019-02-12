@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
-- Use  `store-graphql` to fetch user's last order from OMS API
+- Use `store-graphql` to fetch user's last order from OMS API
 - Rebuy button now correctly rebuilds order
 
 ## [1.1.1] - 2019-01-29
