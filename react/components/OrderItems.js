@@ -26,7 +26,7 @@ const OrderItems = ({ items = [] }) => {
             </Link>
           </div>
           <div className="vtex-rebuy__item-column flex-auto">
-            <div className="vtex-rebuy__item-details flex justify-center justify-between-ns items-center-ns flex-column flex-row-ns h-100">
+            <div className="vtex-rebuy__item-details flex justify-center justify-between-ns items-center-ns flex-column flex-row-ns h-100 mb2-s">
               <Link className="link t-body t-heading-5-ns c-on-base" to={path(['detailUrl'], item)}>
                 <span className="vtex-rebuy__item-details">{`${prop(
                   'quantity',
