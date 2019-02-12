@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { compose, map, path, pick, prop, propOr, values } from 'ramda'
 import { contextPropTypes } from 'vtex.store-resources/OrderFormContext'
 import { graphql } from 'react-apollo'
 
-import lastUserOrder from '../queries/lastUserOrder.gql'
+import userLastOrder from '../queries/userLastOrder.gql'
 
 import Content from './Content'
+import { userLastOrderType } from './propTypes'
 import { separateParentChildren } from '../utils/attachments'
 
 const parseOrderItemToButton = ({ id, sellingPrice, additionalInfo={}, ...rest }) =>
@@ -47,6 +49,10 @@ class Rebuy extends Component {
 
   static propTypes = {
     orderFormContext: contextPropTypes,
+    lastOrderQuery: PropTypes.shape({
+      loading: PropTypes.bool,
+      userLastOrder: userLastOrderType,
+    })
   }
   state = {
     isVisible: false,
@@ -89,7 +95,7 @@ class Rebuy extends Component {
   render() {
     const { isVisible } = this.state
 
-    const lastOrder = path(['lastUserOrder', 'lastUserOrder'], this.props)
+    const lastOrder = path(['lastOrderQuery', 'userLastOrder'], this.props)
 
     if (!lastOrder) {
       return null
@@ -107,4 +113,4 @@ class Rebuy extends Component {
   }
 }
 
-export default graphql(lastUserOrder, { name: 'lastUserOrder', options: {ssr: false}})(Rebuy)
+export default graphql(userLastOrder, { name: 'lastOrderQuery', options: {ssr: false}})(Rebuy)

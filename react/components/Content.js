@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { isMobileOnly } from 'react-device-detect'
 import { prop, find, propEq } from 'ramda'
 import { ExtensionPoint } from 'vtex.render-runtime'
@@ -33,6 +34,25 @@ const AddButton = ({ products }) => (
 const findItemTotal = (lastOrder) => prop('value' ,find(propEq('id', 'Items'))(prop('totals', lastOrder)))
 
 class Content extends Component {
+  static propTypes = {
+    lastOrder: userLastOrderType,
+    products: PropTypes.arrayOf(PropTypes.shape({
+      skuId: PropTypes.string.isRequired,
+      seller: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      brand: PropTypes.string.isRequired,
+      quantity: PropTypes.number.isRequired,
+      options: PropTypes.arrayOf(PropTypes.shape({
+        assemblyId: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        quantity: PropTypes.number.isRequired,
+        seller: PropTypes.string.isRequired,
+      }))
+    }))
+  }
+
+
   renderMobile = () => {
     const { lastOrder, products } = this.props
 
