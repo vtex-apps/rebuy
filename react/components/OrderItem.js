@@ -4,6 +4,7 @@ import { Link } from 'vtex.render-runtime'
 import ProductPrice from 'vtex.store-components/ProductPrice'
 
 import { orderItemType } from './propTypes'
+import ItemImage from './ItemImage'
 
 import { sumTotalPricePerUnit } from '../utils/attachments'
 
@@ -16,12 +17,7 @@ const OrderItem = ({ item, index, assemblyOptions }) => (
   >
     <div className={`${rebuy.itemColumn} flex-shrink-0 mr5`}>
       <Link className="link c-muted-1" to={item.detailUrl}>
-        <img
-          height="64"
-          width="64"
-          className="vtex-rebuy__item-img"
-          src={item.imageUrl}
-        />
+        <ItemImage size={64} imageUrl={item.imageUrl} />
       </Link>
     </div>
     <div className={`${rebuy.itemColumn} flex-auto`}>

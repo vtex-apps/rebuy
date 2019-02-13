@@ -1,0 +1,36 @@
+[  
+  {  
+     "skuId":"0",
+     "quantity":1,
+     "seller":"1",
+     "options":[  
+        {  
+           "assemblyId":"Pepperoni - Small_Basic Toppings",
+           "id":"1",
+           "quantity":1,
+           "seller":"1"
+        },
+        {  
+           "assemblyId":"Pepperoni - Small_Basic Toppings",
+           "id":"2",
+           "quantity":1,
+           "seller":"1"
+        },
+        {  
+           "assemblyId":"Pepperoni - Small_Crust",
+           "id":"2",
+           "quantity":1,
+           "seller":"1"
+        },
+        {  
+           "assemblyId":"Pepperoni - Small_Toppings",
+           "id":"1",
+           "quantity":2,
+           "seller":"1"
+        }
+     ],
+     "price":14,
+     "name":"Pepperoni small",
+     "brand":"Pizza"
+  }
+]
