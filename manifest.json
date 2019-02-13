@@ -1,7 +1,7 @@
 {
   "name": "rebuy",
   "vendor": "vtex",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "title": "Rebuy",
   "description": "VTEX Rebuy app",
   "mustUpdateAt": "2019-10-26",
@@ -11,28 +11,15 @@
   ],
   "builders": {
     "store": "0.x",
-    "react": "3.x"
+    "react": "3.x",
+    "messages": "1.x"
   },
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
-  "settingsSchema": {
-    "title": "vtex.rebuy.settings",
-    "type": "object",
-    "required": [
-      "schemaName"
-    ],
-    "properties": {
-      "schemaName": {
-        "type": "string",
-        "title": "vtex.rebuy.settings.schema-name",
-        "default": "lastOrders"
-      }
-    }
-  },
   "dependencies": {
     "vtex.styleguide": "9.x",
-    "vtex.store-resources": "0.x",
-    "vtex.store-components": "3.x"
+    "vtex.store-components": "3.x",
+    "vtex.store-graphql": "2.x"
   }
 }

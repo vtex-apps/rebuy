@@ -1,31 +1,79 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { path } from 'ramda'
-import { Spinner } from 'vtex.styleguide'
-import { orderFormConsumer, contextPropTypes } from 'vtex.store-resources/OrderFormContext'
+import { graphql } from 'react-apollo'
 
-import Rebuy from './components/Rebuy'
+import userLastOrder from './queries/userLastOrder.gql'
+import Content from './components/Content'
+import { userLastOrderType } from './components/propTypes'
+import { buildItemsWithOptions } from './utils/attachments'
 
-import './global.css'
+class Rebuy extends Component {
+  container = React.createRef()
 
-/**
- * TODO: Show listing of attachments for each SKU when orderForm enables that
- */
-class RebuyContainer extends Component {
-  static propTypes = { orderFormContext: contextPropTypes }
-  schemaName = 'lastOrders'
+  static propTypes = {
+    lastOrderQuery: PropTypes.shape({
+      loading: PropTypes.bool,
+      userLastOrder: userLastOrderType,
+    })
+  }
+  state = {
+    isVisible: false,
+  }
 
-  getOrdersURL = ({ schemaName, email }) =>
-    `/api/dataentities/orders/search?_schema=${schemaName}&_where=clientProfileData.email=${email}&_sort=createdIn DESC`
+  triggerOpenTransition = () => {
+    setTimeout(() => {
+      this.setState({
+        isVisible: true,
+      })
+
+      const containerElement = this.container.current
+
+      if (!containerElement) {
+        return
+      }
+
+      const transitionDuration = 800
+      // get the actual container height
+      containerElement.style.height = 'auto'
+      const containerHeight = containerElement.clientHeight
+
+      // sets the height back to zero, and triggers a layout,
+      // by trying to get getBoundingClientRect
+      containerElement.style.height = 0
+      containerElement.getBoundingClientRect()
+
+      // sets the transition and set the height to the target value
+      containerElement.style.transition = `height ${transitionDuration}ms ease-in-out`
+      containerElement.style.height = `${containerHeight}px`
+
+      // after the transition, sets the height to auto, in case the
+      // content or height change
+      setTimeout(() => {
+        containerElement.style.height = 'auto'
+      }, transitionDuration + 100)
+    }, 500)
+  }
 
   render() {
-    const { loading, orderForm } = this.props.orderFormContext
+    const { isVisible } = this.state
 
-    const email = !loading && path(['clientProfileData', 'email'], orderForm)
+    const lastOrder = path(['lastOrderQuery', 'userLastOrder'], this.props)
 
-    const ordersURL = email && this.getOrdersURL({ schemaName: this.schemaName, email })
+    if (!lastOrder) {
+      return null
+    }
 
-    return <Rebuy url={ordersURL || undefined} {...this.props} />
+    if (!isVisible) {
+      this.triggerOpenTransition()
+    }
+
+    return (
+      <Content 
+        lastOrder={lastOrder} 
+        products={buildItemsWithOptions(lastOrder.items)} />
+    )
   }
 }
 
-export default orderFormConsumer(RebuyContainer)
+export default graphql(userLastOrder, { name: 'lastOrderQuery', options: {ssr: false}})(Rebuy)

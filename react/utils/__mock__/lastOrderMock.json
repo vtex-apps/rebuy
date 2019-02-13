@@ -1,0 +1,93 @@
+{  
+  "orderId":"111aaa",
+  "value":1750,
+  "items":[  
+     {  
+        "uniqueId":"0",
+        "id":"0",
+        "name":"Pepperoni small",
+        "sellingPrice":1400,
+        "imageUrl":"http://delivery.vteximg.com.br/arquivos/ids/155439-55-55/pepperoni-feast.0e1c4c9e7b8900d08cc51ff285fd9ae3.1.jpg?v=636770441237070000",
+        "detailUrl":"/pizza-pepperoni/p",
+        "quantity":1,
+        "parentItemIndex":null,
+        "parentAssemblyBinding":null,
+        "seller":"1",
+        "additionalInfo":{  
+           "brandName":"Pizza"
+        }
+     },
+     {  
+        "uniqueId":"1",
+        "id":"1",
+        "name":"Pepperoni",
+        "sellingPrice":0,
+        "imageUrl":"http://delivery.vteximg.com.br/arquivos/ids/155439-55-55/pepperoni-feast.0e1c4c9e7b8900d08cc51ff285fd9ae3.1.jpg?v=636770441237070000",
+        "detailUrl":"/pizza-pepperoni/p",
+        "quantity":1,
+        "parentItemIndex":0,
+        "parentAssemblyBinding":"Pepperoni - Small_Basic Toppings",
+        "seller":"1",
+        "additionalInfo":{  
+           "brandName":"Pizza"
+        }
+     },
+     {  
+        "uniqueId":"2",
+        "id":"2",
+        "name":"Onion",
+        "sellingPrice":0,
+        "imageUrl":"http://delivery.vteximg.com.br/arquivos/ids/155439-55-55/pepperoni-feast.0e1c4c9e7b8900d08cc51ff285fd9ae3.1.jpg?v=636770441237070000",
+        "detailUrl":"/pizza-pepperoni/p",
+        "quantity":1,
+        "parentItemIndex":0,
+        "parentAssemblyBinding":"Pepperoni - Small_Basic Toppings",
+        "seller":"1",
+        "additionalInfo":{  
+           "brandName":"Pizza"
+        }
+     },
+     {  
+        "uniqueId":"2",
+        "id":"2",
+        "name":"Classic Crust",
+        "sellingPrice":0,
+        "imageUrl":"http://delivery.vteximg.com.br/arquivos/ids/155439-55-55/pepperoni-feast.0e1c4c9e7b8900d08cc51ff285fd9ae3.1.jpg?v=636770441237070000",
+        "detailUrl":"/pizza-pepperoni/p",
+        "quantity":1,
+        "parentItemIndex":0,
+        "parentAssemblyBinding":"Pepperoni - Small_Crust",
+        "seller":"1",
+        "additionalInfo":{  
+           "brandName":"Pizza"
+        }
+     },
+     {  
+        "uniqueId":"3",
+        "id":"1",
+        "name":"Pepperoni",
+        "sellingPrice":100,
+        "imageUrl":"http://delivery.vteximg.com.br/arquivos/ids/155439-55-55/pepperoni-feast.0e1c4c9e7b8900d08cc51ff285fd9ae3.1.jpg?v=636770441237070000",
+        "detailUrl":"/pizza-pepperoni/p",
+        "quantity":2,
+        "parentItemIndex":0,
+        "parentAssemblyBinding":"Pepperoni - Small_Toppings",
+        "seller":"1",
+        "additionalInfo":{  
+           "brandName":"Pizza"
+        }
+     }
+  ],
+  "totals":[  
+     {  
+        "id":"Items",
+        "name":"Items",
+        "value":1600
+     },
+     {  
+        "id":"Shipping",
+        "name":"Shipping",
+        "value":150
+     }
+  ]
+}
