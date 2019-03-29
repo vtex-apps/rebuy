@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { path } from 'ramda'
+import { compose, path } from 'ramda'
 import { graphql } from 'react-apollo'
+import { session } from 'vtex.store-resources/Queries'
 
 import userLastOrder from './queries/userLastOrder.gql'
 import Content from './components/Content'
 import { userLastOrderType } from './components/propTypes'
-import { buildItemsWithOptions } from './utils/attachments'
 
 class Rebuy extends Component {
   container = React.createRef()
@@ -15,10 +15,27 @@ class Rebuy extends Component {
     lastOrderQuery: PropTypes.shape({
       loading: PropTypes.bool,
       userLastOrder: userLastOrderType,
-    })
+    }),
+    sessionQuery: PropTypes.shape({
+      loading: PropTypes.bool,
+      getSession: PropTypes.shape({ 
+        profile: PropTypes.object,
+      }),
+    }),
   }
   state = {
     isVisible: false,
+  }
+
+  componentDidUpdate(prevProps) {
+    const getProfile = (props) => path(['sessionQuery', 'getSession', 'profile'], props)
+    const oldProfile = getProfile(prevProps)
+    const currentProfile = getProfile(this.props)
+
+    // Checking if user just logged in
+    if (oldProfile == null && currentProfile != null) {
+      this.props.lastOrderQuery.refetch()
+    }
   }
 
   triggerOpenTransition = () => {
@@ -67,13 +84,11 @@ class Rebuy extends Component {
     if (!isVisible) {
       this.triggerOpenTransition()
     }
-
-    return (
-      <Content 
-        lastOrder={lastOrder} 
-        products={buildItemsWithOptions(lastOrder.items)} />
-    )
+    return <Content lastOrder={lastOrder} />
   }
 }
 
-export default graphql(userLastOrder, { name: 'lastOrderQuery', options: {ssr: false}})(Rebuy)
+export default compose (
+  graphql(session, { name: 'sessionQuery'}),
+  graphql(userLastOrder, { name: 'lastOrderQuery'}),
+)(Rebuy)

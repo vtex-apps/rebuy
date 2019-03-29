@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.3.0] - 2019-03-29
+### Changed
+- Show component after user logs in.
+- Use createBy API from Checkout.
+
 ## [1.2.2] - 2019-03-14
 ### Changed
 - Change language files to most generic.

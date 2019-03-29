@@ -2,6 +2,7 @@ query userLastOrder {
   userLastOrder {
     orderId
     value
+    orderGroup
     items {
       uniqueId
       id
