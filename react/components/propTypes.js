@@ -17,6 +17,7 @@ export const orderItemType = PropTypes.shape({
 export const userLastOrderType = PropTypes.shape({
   orderId: PropTypes.string,
   value: PropTypes.number,
+  orderGroup: PropTypes.string,
   items: PropTypes.arrayOf(orderItemType),
   totals: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
