@@ -13,7 +13,7 @@ const OrderItems = ({ items = [] }) => {
   return (
     <ul className={`${rebuy.items} list ma0 pa0`}>
       {items.map((item, index) => isParentItem(item) ? (
-        <OrderItem {...{ item, assemblyOptions, index}} />
+        <OrderItem {...{ item, assemblyOptions, index}} key={item.uniqueId} />
       ) : null)}
     </ul>
   )

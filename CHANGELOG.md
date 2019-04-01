@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.3.2] - 2019-04-01
+### Fixed
+- Correctly pass key prop to OrderItems items.
+
 ## [1.3.1] - 2019-04-01
 ### Fixed
 - Convert images url to https.
