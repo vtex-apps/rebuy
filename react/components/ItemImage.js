@@ -4,6 +4,12 @@ import { head } from 'ramda'
 
 import rebuy from '../rebuy.css'
 
+const httpRegex = new RegExp(/http:\/\//)
+
+export function toHttps(url) {
+  return url.replace(httpRegex, 'https://')
+}
+
 const correctImageUrl = (imageUrl, size) => {
   const urlSplitted = imageUrl.split('/')
   const idsStringIdx = urlSplitted.findIndex(content => content === 'ids')
@@ -20,7 +26,7 @@ const ItemImage = ({ imageUrl, size }) => (
     width={size}
     height={size}
     className={`${rebuy.itemImage}`}
-    src={correctImageUrl(imageUrl, size)}
+    src={correctImageUrl(toHttps(imageUrl), size)}
   />
 )
 
