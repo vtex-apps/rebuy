@@ -11,10 +11,7 @@ import { sumTotalPricePerUnit } from '../utils/attachments'
 import rebuy from '../rebuy.css'
 
 const OrderItem = ({ item, index, assemblyOptions }) => (
-  <li
-    key={item.uniqueId}
-    className={`${rebuy.item} flex justify-between pt3 bb b--muted-4`}
-  >
+  <li className={`${rebuy.item} flex justify-between pt3 bb b--muted-4`}>
     <div className={`${rebuy.itemColumn} flex-shrink-0 mr5`}>
       <Link className="link c-muted-1" to={item.detailUrl}>
         <ItemImage size={64} imageUrl={item.imageUrl} />
