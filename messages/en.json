@@ -1,5 +1,5 @@
 {
-  "rebuy.add-to-cart": "Add to cart",
-  "rebuy.last-order": "Here is your last order",
-  "rebuy.total": "Total"
+  "store/rebuy.add-to-cart": "Add to cart",
+  "store/rebuy.last-order": "Here is your last order",
+  "store/rebuy.total": "Total"
 }
