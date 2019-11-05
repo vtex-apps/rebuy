@@ -16,14 +16,14 @@ const Wrapper = ({children}) => (
 
 const LastOrderLabel = () => (
   <div className="t-body c-on-base ml4-ns">
-    <FormattedMessage id="rebuy.last-order" />
+    <FormattedMessage id="store/rebuy.last-order" />
   </div>
 ) 
   
 const AddButton = ({ onClick, isLoading }) => (
   <div className="pt5 pt7-ns mh5">
     <Button block onClick={onClick} isLoading={isLoading}>
-      <FormattedMessage id="rebuy.add-to-cart" />
+      <FormattedMessage id="store/rebuy.add-to-cart" />
     </Button>
   </div>
 )
